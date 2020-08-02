@@ -1,0 +1,15 @@
+.container {
+    padding-top: 10px;
+    margin: auto;
+}
+
+#currentForcast {
+    margin-left: 0;
+}
+
+
+@media (max-width: 768px) {
+
+   
+    
+  }
