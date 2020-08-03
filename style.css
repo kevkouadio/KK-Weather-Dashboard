@@ -7,6 +7,9 @@
     margin-left: 0;
 }
 
+.btn-info {
+    width: 100%;
+}
 
 @media (max-width: 768px) {
 
