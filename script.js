@@ -6,32 +6,64 @@ $("#searchcity").click(function displayWeather(){
 
     const APIKey = "d9680370698e25d5baff0233989f8bbc";
     var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=imperial`;
+    var forcastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=b8ecb570e32c2e5042581abd004b71bb&units=imperial`
+    //ajax function for actual forcast display
     $.ajax({
         url: queryURL,
         method: "GET"
       }).then(function(response) {
-        
-      $(".cityDate").text(response.name);
+        //variable to declare the date
+        var timeUTC = new Date(response.dt * 1000);
+        //Display date and city name
+      $(".cityDate").text(response.name +"  "+ timeUTC.toLocaleDateString("en-US"));
+        //Display icon
+        $('.icon').empty();
+      var imgURL = `http://openweathermap.org/img/w/${response.weather[0].icon}.png`;
+      var image = $("<img>").attr("src", imgURL);
+        $('.icon').append(image);
+       //Display description
+      $('.sky').text(response.weather[0].description);
+       //Display temperature
       $('.temp').text('Temp: '+ response.main.temp + ' F');
+        //Display wind speed
       $('.wind').text("Wind: "+ response.wind.speed +" MPH");
+        //Display humidity
       $('.humidity').text("Humidity: " + response.main.humidity +'%');
-        console.log(response);
         
-      });  
+    }); 
+    //ajax function for five days forcast display
+    $.ajax({
+        url: forcastURL,
+        method: "GET"
+      }).then(function(response) {
+        // Array for 5-days 
+        var day = [0, 8, 16, 24, 32];
+        //creation of new div
+        var fiveDayDiv = $(".fiveDays").addClass("card-text");
+        fiveDayDiv.empty();
+        // For each for 5 days
+        day.forEach(function (i) {
+            //var for date display
+            var FiveDayTimeUTC = new Date(response.list[i].dt * 1000);
+            FiveDayTimeUTC = FiveDayTimeUTC.toLocaleDateString("en-US");
+            //Display of 5 days forecast
+            fiveDayDiv.append("<div class=fiveDayDiv>" + "<p>" + FiveDayTimeUTC + "</p>" + 
+            `<img src="https://openweathermap.org/img/wn/${response.list[i].weather[0].icon}@2x.png">` 
+            + "<p>" + "Temp: " + response.list[i].main.temp + "</p>" + "<p>" + "Humidity: " 
+            + response.list[i].main.humidity + "%" + "</p>" + "</div>");
+        })
+    });  
 }); 
 
 // creating cities buttons 
  function renderButtons() {
-
     $("#cityBtn").empty();
 
     // Looping through the array of cities
     for (var i = 0; i < cities.length; i++) {
-
-      // Then dynamicaly generating buttons for each city in the array
-      
+      //creating button
       var c = $("<button>");
-      // Adding a class of movie to our button
+      // Adding a class to our button
       c.addClass("city btn btn-info");
       // Adding a data-attribute
       c.attr("city-input", cities[i]);
@@ -39,20 +71,17 @@ $("#searchcity").click(function displayWeather(){
       c.text(cities[i]);
       // Adding the button to the HTML
       $("#cityBtn").append(c);
-    }
-    
+    } 
   }
 
   // This function handles events where one button is clicked
   $("#searchcity").on("click", function(event) {
-    // Preventing the buttons default behavior when clicked (which is submitting a form)
+    // Preventing the buttons default behavior when clicked 
     event.preventDefault();
     // This line grabs the input from the textbox
     var city = $("#city-input").val().trim();
-
     // Adding the city from the textbox to our array
     cities.push(city);
-
     // Calling renderButtons which handles the processing of our city array
     renderButtons();
   });

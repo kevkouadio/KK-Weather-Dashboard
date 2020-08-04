@@ -11,8 +11,14 @@
     width: 100%;
 }
 
-@media (max-width: 768px) {
 
-   
-    
-  }
+.fiveDayDiv {
+    padding: 20px;
+    background-color: #1E90FF;
+    color: white;
+    float: left;
+    margin: 10px;
+    width: auto;
+    border: 1px solid lightgray;
+}
+
