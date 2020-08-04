@@ -1,8 +1,7 @@
 // Initial array for cities buttons
 var cities = [];
 
-
-$("#searchcity").click(function (){
+function displayWeather() {
     var city = $("#city-input").val();
 
     const APIKey = "d9680370698e25d5baff0233989f8bbc";
@@ -81,8 +80,7 @@ $("#searchcity").click(function (){
             + response.list[i].main.humidity + "%" + "</p>" + "</div>");
         })
     });  
-}); 
-
+}
 
 // creating cities buttons 
  function renderButtons() {
@@ -114,7 +112,7 @@ $("#searchcity").click(function (){
     // Calling renderButtons which handles the processing of our city array
     renderButtons(); 
     localStorage.setItem('cityBtn', JSON.stringify(cities));
-
+    
   });
 // Adding a function to display cityBtn from localstorage
 function init() {
@@ -126,7 +124,12 @@ function init() {
   renderButtons(cities);
 }
 init();
+//function to display weather info on click of cityBtn
 
-
+$(".btn-primary").click(function (){
+  var d = $(this).attr('city-input');
+  $("#city-input").prop("value", d);
+  displayWeather();
+});
 
 
