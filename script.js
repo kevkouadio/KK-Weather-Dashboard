@@ -1,7 +1,8 @@
 // Initial array for cities buttons
 var cities = [];
 
-$("#searchcity").click(function displayWeather(){
+
+$("#searchcity").click(function (){
     var city = $("#city-input").val();
 
     const APIKey = "d9680370698e25d5baff0233989f8bbc";
@@ -82,6 +83,7 @@ $("#searchcity").click(function displayWeather(){
     });  
 }); 
 
+
 // creating cities buttons 
  function renderButtons() {
     $("#cityBtn").empty();
@@ -90,32 +92,41 @@ $("#searchcity").click(function displayWeather(){
       //creating button
       var c = $("<button>");
       // Adding a class to our button
-      c.addClass("city btn btn-info");
+      c.addClass("city btn btn-primary");
       // Adding a data-attribute
       c.attr("city-input", cities[i]);
       // Providing the initial button text
       c.text(cities[i]);
       // Adding the button to the HTML
       $("#cityBtn").append(c);
+      ;
     } 
   }
 
-  // This function handles events where one button is clicked
+  // This function handles events where a button is clicked
   $("#searchcity").on("click", function(event) {
     // Preventing the buttons default behavior when clicked 
     event.preventDefault();
     // This line grabs the input from the textbox
-    var city = $("#city-input").val().trim();
+    var city = $("#city-input").val().trim().toUpperCase();
     // Adding the city from the textbox to our array
     cities.push(city);
     // Calling renderButtons which handles the processing of our city array
-    renderButtons();
+    renderButtons(); 
+    localStorage.setItem('cityBtn', JSON.stringify(cities));
+
   });
-// Adding a click event listener to all elements with a class of "movie-btn"
+// Adding a function to display cityBtn from localstorage
+function init() {
+  var storedCities = JSON.parse(localStorage.getItem("cityBtn"));
+
+  if (storedCities !== null) {
+      cities = storedCities;
+  }
+  renderButtons(cities);
+}
+init();
 
 
-      // Adding a click event listener to all elements with a class of "movie-btn"
-      $("#cityBtn").on("click", displayWeather());
 
-      // Calling the renderButtons function to display the initial buttons
-      renderButtons();
+
