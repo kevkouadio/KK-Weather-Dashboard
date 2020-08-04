@@ -6,8 +6,8 @@ $("#searchcity").click(function displayWeather(){
 
     const APIKey = "d9680370698e25d5baff0233989f8bbc";
     var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=imperial`;
-    var forcastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=b8ecb570e32c2e5042581abd004b71bb&units=imperial`
-    //ajax function for actual forcast display
+    var forcastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIKey}&units=imperial`
+    //ajax call for actual forcast display
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -15,7 +15,7 @@ $("#searchcity").click(function displayWeather(){
         //variable to declare the date
         var timeUTC = new Date(response.dt * 1000);
         //Display date and city name
-      $(".cityDate").text(response.name +"  "+ timeUTC.toLocaleDateString("en-US"));
+      $(".cityDate").text(response.name +"  "+ '('+ (timeUTC.toLocaleDateString("en-US"))+')');
         //Display icon
         $('.icon').empty();
       var imgURL = `http://openweathermap.org/img/w/${response.weather[0].icon}.png`;
@@ -29,9 +29,36 @@ $("#searchcity").click(function displayWeather(){
       $('.wind').text("Wind: "+ response.wind.speed +" MPH");
         //Display humidity
       $('.humidity').text("Humidity: " + response.main.humidity +'%');
-        
-    }); 
-    //ajax function for five days forcast display
+
+      // UV Index URL
+      var urlUV = `https://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`;
+      // UV Index ajax call
+      $.ajax({
+          url: urlUV,
+          method: "GET"
+      }).then(function (response) {
+        //set default bacground color
+        bkcolor = "violet";
+        //convert UV value in number
+        var uv = parseFloat(response.value);
+        //set uv background color according to its index number
+          if (uv < 3) { 
+            bkcolor = 'green';
+          } else if (uv < 6) { 
+            bkcolor = 'yellow';
+          } else if (uv < 8) { 
+            bkcolor = 'orange';
+          } else if (uv < 11) { 
+            bkcolor = 'red';
+          }
+        //display uv index
+        var uvDisplay = '<span>UV Index: </span>';
+        var uvColor = uvDisplay + `<span style="background-color: ${bkcolor}; padding: 0 7px 0 7px;">${response.value}</span>`;
+        $('.UV').html(uvColor);     
+      });
+    });   
+
+    //ajax call for five days forcast display
     $.ajax({
         url: forcastURL,
         method: "GET"
@@ -58,7 +85,6 @@ $("#searchcity").click(function displayWeather(){
 // creating cities buttons 
  function renderButtons() {
     $("#cityBtn").empty();
-
     // Looping through the array of cities
     for (var i = 0; i < cities.length; i++) {
       //creating button
@@ -87,8 +113,9 @@ $("#searchcity").click(function displayWeather(){
   });
 // Adding a click event listener to all elements with a class of "movie-btn"
 
+
       // Adding a click event listener to all elements with a class of "movie-btn"
-      $(document).on("click", "#cityBtn", displayWeather());
+      $("#cityBtn").on("click", displayWeather());
 
       // Calling the renderButtons function to display the initial buttons
       renderButtons();
