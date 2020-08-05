@@ -1,6 +1,14 @@
+body {
+    background-color: rgb(201, 222, 223);
+}
 .container {
     padding-top: 10px;
     margin: auto;
+}
+
+#currentWeather,
+#searchBox {
+background-color: lemonchiffon;
 }
 
 #currentForcast {
