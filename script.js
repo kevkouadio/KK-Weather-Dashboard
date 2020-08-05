@@ -9,7 +9,7 @@ function displayWeather() {
     //ajax call for actual forcast display
 
     if (city == "") {
-      alert('You need to enter a city name!');
+      console.log('true');
     } else 
     $.ajax({
         url: queryURL,
@@ -99,7 +99,7 @@ function displayWeather() {
       // Providing the initial button text
       c.text(cities[i]);
       // Adding the button to the HTML
-      $("#cityBtn").prepend(c);
+      $("#cityBtn").append(c);
       
     } 
   }
@@ -126,10 +126,13 @@ function displayWeather() {
 // Adding a function to display cityBtn from localstorage
 function init() {
   var storedCities = JSON.parse(localStorage.getItem("cityBtn"));
-
+  
   if (storedCities !== null) {
       cities = storedCities;
   }
+  if (cities.length > 1){ 
+    storedCities.splice(storedCities.indexOf(cities), 0);
+    }
   updatePastCities();
   renderButtons(cities);
 }
@@ -144,6 +147,14 @@ $(".btn-primary").click(function (){
   displayWeather();
   });
 }
+//function to display the last city search if page reloaded
+function lastDisplay() {
+  $(window).on('load', function(){
+    $("#city-input").prop("value", cities[0]);
+    displayWeather();
+    });
+  }
+
 pastCities();
 updatePastCities();
 
@@ -160,3 +171,5 @@ $(".btn-secondary").click(function (){
   location.reload();
   console.log('ok');
   });
+
+  lastDisplay();

@@ -11,7 +11,7 @@ It uses `localStorage` to store any persistent data.
 
 ## Features:
 
-```
+
 GIVEN a weather dashboard with form inputs
 WHEN the user search for a city,
 The searched city is presented with current and future conditions for that city and that city is added to the search history
@@ -19,7 +19,6 @@ The user can view current weather conditions for that city with the city name, t
 The user can also view a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity for that city,
 The cities history is clickable and display the current weather and the 5-days forecast.
 
-```
 
 The following image demonstrates the application functionality:
 
