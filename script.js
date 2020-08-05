@@ -1,13 +1,16 @@
 // Initial array for cities buttons
 var cities = [];
-
+var test = false;
 function displayWeather() {
     var city = $("#city-input").val();
-
     const APIKey = "d9680370698e25d5baff0233989f8bbc";
     var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=imperial`;
     var forcastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIKey}&units=imperial`
     //ajax call for actual forcast display
+
+    if (city == "") {
+      alert('You need to enter a city name!');
+    } else 
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -96,8 +99,8 @@ function displayWeather() {
       // Providing the initial button text
       c.text(cities[i]);
       // Adding the button to the HTML
-      $("#cityBtn").append(c);
-      ;
+      $("#cityBtn").prepend(c);
+      
     } 
   }
 
@@ -107,6 +110,9 @@ function displayWeather() {
     event.preventDefault();
     // This line grabs the input from the textbox
     var city = $("#city-input").val().trim().toUpperCase();
+    if (city == "") {
+      console.log(city);
+    } else
     // Adding the city from the textbox to our array
     cities.push(city);
     // Calling updatePastCities which removes dulicate cities in our cities array
@@ -135,7 +141,6 @@ $(".btn-primary").click(function (){
   var d = $(this).attr('city-input');
   $("#city-input").prop("value", d);
   displayWeather();
-  console.log(d);
   });
 }
 pastCities();
@@ -145,5 +150,6 @@ updatePastCities();
    for (let i=1; i<cities.length; i++) {
     if (cities[i] === cities[i-1]) cities.splice(i,1);
   }
+
 }
 updatePastCities();
