@@ -1,6 +1,6 @@
 // Initial array for cities buttons
 var cities = [];
-var test = false;
+
 function displayWeather() {
     var city = $("#city-input").val();
     const APIKey = "d9680370698e25d5baff0233989f8bbc";
@@ -112,7 +112,7 @@ function displayWeather() {
     var city = $("#city-input").val().trim().toUpperCase();
     if (city == "") {
       console.log(city);
-    } else
+    } else 
     // Adding the city from the textbox to our array
     cities.push(city);
     // Calling updatePastCities which removes dulicate cities in our cities array
@@ -140,16 +140,23 @@ function pastCities() {
 $(".btn-primary").click(function (){
   var d = $(this).attr('city-input');
   $("#city-input").prop("value", d);
+  updatePastCities();
   displayWeather();
   });
 }
 pastCities();
 updatePastCities();
+
    // removes dulicate cities
    function updatePastCities(){
    for (let i=1; i<cities.length; i++) {
-    if (cities[i] === cities[i-1]) cities.splice(i,1);
-  }
-
+    if (cities[i] === cities[i+1]) cities.splice(i,1);
+  } 
 }
 updatePastCities();
+//Clear cities history
+$(".btn-secondary").click(function (){
+  localStorage.clear();
+  location.reload();
+  console.log('ok');
+  });
