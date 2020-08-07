@@ -79,7 +79,7 @@ function displayWeather() {
             //Display of 5 days forecast
             fiveDayDiv.append("<div class=fiveDayDiv>" + "<p>" + FiveDayTimeUTC + "</p>" + 
             `<img src="https://openweathermap.org/img/wn/${response.list[i].weather[0].icon}@2x.png">` 
-            + "<p>"+ response.list[i].weather[0].description + "<p>" + "Temp: " 
+            + "<p>"+ response.list[i].weather[0].description +"</p>"+ "<p>" + "Temp: " 
             + response.list[i].main.temp + " F</p>" + "<p>" + "Humidity: " 
             + response.list[i].main.humidity + "%" + "</p>" + "</div>");
         })
