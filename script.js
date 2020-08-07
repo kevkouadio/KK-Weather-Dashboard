@@ -67,7 +67,7 @@ function displayWeather() {
         method: "GET"
       }).then(function(response) {
         // Array for 5-days 
-        var day = [0, 8, 16, 24, 32];
+        var day = [8, 16, 24, 32, 38];
         //creation of new div
         var fiveDayDiv = $(".fiveDays").addClass("card-text");
         fiveDayDiv.empty();
@@ -79,7 +79,8 @@ function displayWeather() {
             //Display of 5 days forecast
             fiveDayDiv.append("<div class=fiveDayDiv>" + "<p>" + FiveDayTimeUTC + "</p>" + 
             `<img src="https://openweathermap.org/img/wn/${response.list[i].weather[0].icon}@2x.png">` 
-            + "<p>" + "Temp: " + response.list[i].main.temp + "</p>" + "<p>" + "Humidity: " 
+            + "<p>"+ response.list[i].weather[0].description + "<p>" + "Temp: " 
+            + response.list[i].main.temp + " F</p>" + "<p>" + "Humidity: " 
             + response.list[i].main.humidity + "%" + "</p>" + "</div>");
         })
     });  
@@ -126,13 +127,12 @@ function displayWeather() {
 // Adding a function to display cityBtn from localstorage
 function init() {
   var storedCities = JSON.parse(localStorage.getItem("cityBtn"));
-  
+  if (cities.length > 1){ 
+  storedCities.splice(storedCities.indexOf(cities), 0);
+  }
   if (storedCities !== null) {
       cities = storedCities;
   }
-  if (cities.length > 1){ 
-    storedCities.splice(storedCities.indexOf(cities), 0);
-    }
   updatePastCities();
   renderButtons(cities);
 }

@@ -21,11 +21,11 @@ background-color: lemonchiffon;
 
 
 .fiveDayDiv {
-    padding: 20px;
+    padding: 15px;
     background-color: #1E90FF;
     color: white;
     float: left;
-    margin: 10px;
+    margin: 15px;
     width: auto;
     border: 1px solid lightgray;
 }
