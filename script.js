@@ -52,33 +52,7 @@ function displayWeather() {
         //saving array to local storage
         localStorage.setItem('cityBtn', JSON.stringify(cities));
         };
-        
-      // UV Index URL
-      var urlUV = `https://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`;
-      // UV Index ajax call
-      $.ajax({
-          url: urlUV,
-          method: "GET"
-      }).then(function (response) {
-        //set default bacground color
-        bkcolor = "violet";
-        //convert UV value in number
-        var uv = parseFloat(response.value);
-        //set uv background color according to its index number
-          if (uv < 3) { 
-            bkcolor = 'green';
-          } else if (uv < 6) { 
-            bkcolor = 'yellow';
-          } else if (uv < 8) { 
-            bkcolor = 'orange';
-          } else if (uv < 11) { 
-            bkcolor = 'red';
-          }
-        //display uv index
-        var uvDisplay = '<span>UV Index: </span>';
-        var uvColor = uvDisplay + `<span style="background-color: ${bkcolor}; padding: 0 7px 0 7px;">${response.value}</span>`;
-        $('.UV').html(uvColor);     
-      });
+       
     });   
 
     //ajax call for five days forcast display
@@ -105,7 +79,44 @@ function displayWeather() {
         })
     });  
 }
-
+//function to display UV index
+function getUv() {
+var city = $("#city-input").val();
+const APIKey = "d9680370698e25d5baff0233989f8bbc";
+var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=imperial`;
+//ajax call for actual forcast display 
+$.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function(response) {
+      // UV Index URL
+      var urlUV = `https://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`;
+      // UV Index ajax call
+      $.ajax({
+          url: urlUV,
+          method: "GET"
+      }).then(function (response) {
+        //set default bacground color
+        bkcolor = "violet";
+        //convert UV value in number
+        var uv = parseFloat(response.value);
+        //set uv background color according to its index number
+          if (uv < 3) { 
+            bkcolor = 'green';
+          } else if (uv < 6) { 
+            bkcolor = 'yellow';
+          } else if (uv < 8) { 
+            bkcolor = 'orange';
+          } else if (uv < 11) { 
+            bkcolor = 'red';
+          }
+        //display uv index
+        var uvDisplay = '<span>UV Index: </span>';
+        var uvColor = uvDisplay + `<span style="background-color: ${bkcolor}; padding: 0 7px 0 7px;">${response.value}</span>`;
+        $('.UV').html(uvColor);    
+      });
+    });
+  } 
 // creating cities buttons 
  function renderButtons() {
     $("#cityBtn").empty();
@@ -131,6 +142,7 @@ function pastCities() {
     var d = $(this).attr('city-input');
     $("#city-input").prop("value", d);
     displayWeather();
+    getUv();
     });
   }
   
@@ -147,6 +159,7 @@ function init() {
   $(window).on('load', function(){
     $("#city-input").prop("value", cities[0]);
     displayWeather();
+    getUv();
     });
 
 //Clear cities history
