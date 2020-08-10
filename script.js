@@ -164,7 +164,7 @@ function init() {
 
 //Clear cities history
 $(".btn-secondary").click(function (){
-  localStorage.clear();
+  localStorage.removeItem("cityBtn");
   location.reload();
   });
 
