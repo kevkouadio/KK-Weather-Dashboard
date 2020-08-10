@@ -33,6 +33,26 @@ function displayWeather() {
         //Display humidity
       $('.humidity').text("Humidity: " + response.main.humidity +'%');
 
+        //generates cities array elements 
+        var city = (response.name).trim().toUpperCase();
+        //delete duplicate cities in array
+        if (city == "") {
+          console.log("error");
+        } else {
+          for(i=0;i<cities.length;i++) {
+          if(cities[i]==city) {
+          return;
+          }
+          }
+        // Adding the city from the textbox to index [0] of our array
+        cities.unshift(city);
+        //calling function to display city button
+        renderButtons(); 
+        pastCities();
+        //saving array to local storage
+        localStorage.setItem('cityBtn', JSON.stringify(cities));
+        };
+        
       // UV Index URL
       var urlUV = `https://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`;
       // UV Index ajax call
@@ -105,71 +125,35 @@ function displayWeather() {
     } 
   }
 
-  // This function handles events where a button is clicked
-  $("#searchcity").on("click", function(event) {
-    // Preventing the buttons default behavior when clicked 
-    event.preventDefault();
-    // This line grabs the input from the textbox
-    var city = $("#city-input").val().trim().toUpperCase();
-    if (city == "") {
-      console.log(city);
-    } else 
-    // Adding the city from the textbox to our array
-    cities.push(city);
-    // Calling updatePastCities which removes dulicate cities in our cities array
-    updatePastCities();
-    // Calling renderButtons which handles the processing of our cities array
-    renderButtons(); 
-    localStorage.setItem('cityBtn', JSON.stringify(cities));
-    //Calling pastCities to display cities history
-    pastCities();  
-  });
+//function to display weather info on click of cityBtn
+function pastCities() {
+  $(".btn-primary").click(function (){
+    var d = $(this).attr('city-input');
+    $("#city-input").prop("value", d);
+    displayWeather();
+    });
+  }
+  
 // Adding a function to display cityBtn from localstorage
 function init() {
   var storedCities = JSON.parse(localStorage.getItem("cityBtn"));
-  if (cities.length > 1){ 
-  storedCities.splice(storedCities.indexOf(cities), 0);
-  }
   if (storedCities !== null) {
       cities = storedCities;
   }
-  updatePastCities();
   renderButtons(cities);
 }
-init();
 
-//function to display weather info on click of cityBtn
-function pastCities() {
-$(".btn-primary").click(function (){
-  var d = $(this).attr('city-input');
-  $("#city-input").prop("value", d);
-  updatePastCities();
-  displayWeather();
-  });
-}
 //function to display the last city search if page reloaded
-function lastDisplay() {
   $(window).on('load', function(){
     $("#city-input").prop("value", cities[0]);
     displayWeather();
     });
-  }
 
-pastCities();
-updatePastCities();
-
-   // removes dulicate cities
-   function updatePastCities(){
-   for (let i=1; i<cities.length; i++) {
-    if (cities[i] === cities[i+1]) cities.splice(i,1);
-  } 
-}
-updatePastCities();
 //Clear cities history
 $(".btn-secondary").click(function (){
   localStorage.clear();
   location.reload();
-  console.log('ok');
   });
 
-  lastDisplay();
+init();
+pastCities();
