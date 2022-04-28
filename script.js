@@ -33,6 +33,17 @@ function displayWeather() {
         //Display humidity
       $('.humidity').text("Humidity: " + response.main.humidity +'%');
 
+      //backgroung
+      if (response.weather[0].main == 'Rain'){
+        $('body').css('background-image','url(https://cdn.wallpapersafari.com/32/39/1TAjna.jpg)');
+      } else if (response.weather[0].main == 'Clouds') {
+        $('body').css('background-image','url(https://jooinn.com/images/stormy-coulds-9.jpg)');
+      } else if (response.weather[0].main == 'Clear') {
+        $('body').css('background-image','url(https://wallpaperaccess.com/full/535675.jpg)');
+      } else {
+        $('body').css('background-image','url(https://wallpaper.dog/large/17017853.jpg');
+      }
+     
         //generates cities array elements 
         var city = (response.name).trim().toUpperCase();
         //delete duplicate cities in array
@@ -135,14 +146,26 @@ $.ajax({
       
     } 
   }
+  
+//display weather on press of "Enter"
+$("#city-input").keypress(function(event) {
+  if(event.key === "Enter"){
+    event.preventDefault();
+    $("#searchcity").click();
+  }
+});
 
 //function to display weather info on click of cityBtn
 function pastCities() {
   $(".btn-primary").click(function (){
     var d = $(this).attr('city-input');
     $("#city-input").prop("value", d);
+    //var x = $(this).text();
+    //$("#city-input").value(x);
+    //alert(x);
     displayWeather();
     getUv();
+    //$("#city-input").clear("value");
     });
   }
   

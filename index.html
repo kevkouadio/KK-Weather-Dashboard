@@ -1,92 +1,99 @@
 <!doctype html>
 <html lang="en">
-    <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!--additional CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
-    
+
     <!--Jquery link-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+
     <title>Weather Dashboard</title>
-  </head>
+</head>
 
-  <body>
-      <!--header-->
-        <nav class="navbar navbar-dark bg-dark p-3">
-            <span class="text-white h3 mx-auto navbar-text">
-                Weather Dashboard
-            </span>
-        </nav>
+<body>
+    <!--header-->
+    <nav class="navbar navbar-dark bg-dark p-1">
+        <span class="text-white h3 mx-auto navbar-text">
+            Weather Dashboard
+        </span>
+    </nav>
 
-        <div class="container">
-            <!-- Content here -->
-            <div class="row">
-                <div class="col-md-3">
-                    <div id="searchBox" class="card">
-                        
-                        <form class="form-inline my-2 my-lg-0">
-                            <label for="city-input"><h4>Search for a City</h4></label>
-                            <div class="input-group mb-3 mr-sm-2">
-                                
-                                <input class="form-control mr-sm-0" id="city-input" type="search" placeholder="Enter a City" aria-label="Search">
-                                <div class="input-group-append">
-                                    <button id="searchcity" class="btn btn-primary searchButton" type="button">
+    <div class="container">
+        <!-- Content here -->
+        <div class="row">
+            <div class="col-md-3">
+                <div id="searchBox" class="card">
+                    <form class="form-inline my-2 my-lg-0">
+                        <label for="city-input">
+                            <h4>Search for a City</h4>
+                        </label>
+                        <div class="input-group mb-3 mr-sm-2">
+                            <input class="form-control mr-sm-0" id="city-input" type="search" placeholder="Enter a City" aria-label="Search">
+                            <div class="input-group-append">
+                                <button id="searchcity" class="btn btn-primary searchButton" type="button" onclick="displayWeather()">
                                     <i class="fa fa-search"></i></button>
-                                </div>
                             </div>
-                        </form>
-            
-                        <div id="cityBtn">
+                        </div>
+                    </form>
+
+                    <div id="cityBtn">
                         <!--city added to the search history goes here-->
-                        </div>
-                        <!--button to clear cities history-->
-                        <button type="button" class="btn btn-secondary"><i class="fa fa-trash"></i> Clear Saved Cities</button>
                     </div>
-                </div>
-            
-            
-                <div class="col-md-9">
-                    <div class="row">
-                        <div id="currentWeather" class="card" style="width: 50rem;">
-                            <div class="card-body">
-                                <h3 class="cityDate"></h3>
-                                <div class="icon"></div>
-                                <div class ="sky"></div>
-                                <div class="temp"></div>
-                                <div class="wind"></div>
-                                <div class="humidity"></div>
-                                <div class="UV"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <br>
-                        <h4>5-Days Forecast</h3>
-                            <div class="row">
-                            <div class="fiveDays">
-                            <!--5 days forecast Goes here-->       
-                            </div>
-                             
-                            </div>
-                    
-                    
-                        </div>
-                        </div>
-                    </div>
-                    </div>
+                    <!--button to clear cities history-->
+                    <button type="button" class="btn btn-secondary"><i class="fa fa-trash"></i> Clear Saved
+                        Cities</button>
                 </div>
             </div>
-        </div> 
-         
 
-  <script src="script.js"></script>  
-  </body>
+
+            <div class="col-md-9">
+                <div class="row">
+                    <div id="currentWeather" class="card" style="width: 50rem;">
+                        <div class="card-body">
+                            <h3 class="cityDate"></h3>
+                            <div class="icon"></div>
+                            <div class="sky"></div>
+                            <div class="temp"></div>
+                            <div class="wind"></div>
+                            <div class="humidity"></div>
+                            <div class="UV"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <br>
+                    <h4>5-Days Forecast</h3>
+                        <div class="row">
+                            <div class="fiveDays">
+                                <!--5 days forecast Goes here-->
+                            </div>
+
+                        </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
 </html>
