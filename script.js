@@ -34,27 +34,38 @@ function displayWeather() {
       $('.humidity').text("Humidity: " + response.main.humidity + '%');
 
       //backgroung
-      if (response.weather[0].main == 'Rain') {
-        $('body').css('background-image', 'url(Assets/rain.jpg');
-      } else if (response.weather[0].description == 'scattered clouds') {
-        $('body').css('background-image', 'url(Assets/scattered-clouds.jpg)');
-      } else if (response.weather[0].description == 'few clouds') {
-        $('body').css('background-image', 'url(Assets/few-clouds.jpg)');
-      } else if (response.weather[0].description == 'clear sky') {
-        $('body').css('background-image', 'url(Assets/clear-sky.jpg)');
-      } else if (response.weather[0].description == 'broken clouds') {
-        $('body').css('background-image', 'url(Assets/broken-clouds.jpg)');
-      } else if (response.weather[0].description == 'thunderstorm') {
-        $('body').css('background-image', 'url(Assets/thunderstorm.jpg)');
-      } else if (response.weather[0].description == 'snow') {
-        $('body').css('background-image', 'url(Assets/snow.jpg)');
-      } else if (response.weather[0].description == 'overcast clouds') {
-        $('body').css('background-image', 'url(Assets/overcast-clouds.jpg)');
-      } else {
-        $('body').css('background-image', 'url(Assets/default.jpg');
+      switch (response.weather[0].description) {
+        case 'Rain':
+          $('body').css('background-image', 'url(Assets/rain.jpg)');
+          break;
+        case 'scattered clouds':
+          $('body').css('background-image', 'url(Assets/scattered-clouds.jpg)');
+          break;
+        case 'few clouds':
+          $('body').css('background-image', 'url(Assets/few-clouds.jpg)');
+          break;
+        case 'clear sky':
+          $('body').css('background-image', 'url(Assets/clear-sky.jpg)');
+          break;
+        case 'broken clouds':
+          $('body').css('background-image', 'url(Assets/broken-clouds.jpg)');
+          break;
+        case 'thunderstorm':
+          $('body').css('background-image', 'url(Assets/thunderstorm.jpg)');
+          break;
+        case 'snow':
+          $('body').css('background-image', 'url(Assets/snow.jpg)');
+          break;
+        case 'overcast clouds':
+          $('body').css('background-image', 'url(Assets/overcast-clouds.jpg)');
+          break;
+        case 'light rain':
+          $('body').css('background-image', 'url(Assets/light-rain.jpg)');
+          break;
+        default:
+          $('body').css('background-image', 'url(Assets/default.jpg)');
+          break;
       }
-
-      console.log(response);
 
       //generates cities array elements 
       var city = (response.name).trim().toUpperCase();
@@ -75,7 +86,6 @@ function displayWeather() {
         //saving array to local storage
         localStorage.setItem('cityBtn', JSON.stringify(cities));
       };
-
     });
 
   //ajax call for five days forcast display
@@ -101,6 +111,7 @@ function displayWeather() {
         + response.list[i].main.humidity + "%" + "</p>" + "</div>");
     })
   });
+  getCityImg()
 }
 //function to display UV index
 function getUv() {
@@ -140,6 +151,31 @@ function getUv() {
     });
   });
 }
+
+function getCityImg() {
+  var city = $("#city-input").val();
+  //const APIKey = "d9680370698e25d5baff0233989f8bbc";
+  var queryURL = `https://api.unsplash.com/search/photos?query=${city}&client_id=aRh4dCm8EGQRC8BR7vr0hFbFabB4UNyODFn94QV4sPM`;
+  //https://api.unsplash.com/search/photos?query=abidjan&client_id=aRh4dCm8EGQRC8BR7vr0hFbFabB4UNyODFn94QV4sPM
+  //ajax call for actual forcast display 
+  if (city != "") {
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function (response) {
+      // UV Index URL
+      $('#city-img').empty()
+      console.log(response)
+      // console.log(response.results[0].urls.small)
+      var imgURL = response.results[2].urls.small_s3
+      var img = $("<img>").attr("src", imgURL);
+      img.width(250)
+      $('#city-img').append(img);
+    });
+  }
+}
+
+
 // creating cities buttons 
 function renderButtons() {
   $("#cityBtn").empty();

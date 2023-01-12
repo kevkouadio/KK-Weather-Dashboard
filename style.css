@@ -1,6 +1,6 @@
 body {
     background-image: url(https://wallpaper.dog/large/17017853.jpg);
-    font-family: 'Goldman', cursive;
+    /* font-family: 'Goldman', cursive; */
 }
 .container {
     padding-top: 10px;
@@ -36,4 +36,12 @@ box-shadow: 3px 3px 3px 3px grey;
     border: 1px solid lightgray;
     box-shadow: 3px 3px 3px 3px grey;
     border-radius: 4%;
+}
+
+#city-img {
+    /* margin-top: auto;
+    margin-bottom: auto; */
+    margin: auto;
+    /* text-align: center; */
+    /* position: relative; */
 }
