@@ -165,7 +165,7 @@ function getCityImg() {
     }).then(function (response) {
       // UV Index URL
       $('#city-img').empty()
-      console.log(response)
+      //console.log(response)
       // console.log(response.results[0].urls.small)
       var imgURL = response.results[2].urls.small_s3
       var img = $("<img>").attr("src", imgURL);
@@ -208,12 +208,9 @@ function pastCities() {
   $(".btn-primary").click(function () {
     var d = $(this).attr('city-input');
     $("#city-input").prop("value", d);
-    //var x = $(this).text();
-    //$("#city-input").value(x);
-    //alert(x);
     displayWeather();
     getUv();
-    //$("#city-input").clear("value");
+    $("#city-input").val("");
   });
 }
 
@@ -231,6 +228,7 @@ $(window).on('load', function () {
   $("#city-input").prop("value", cities[0]);
   displayWeather();
   getUv();
+  $("#city-input").val("");
 });
 
 //Clear cities history
