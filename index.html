@@ -41,9 +41,11 @@
                             <h4>Search for a City</h4>
                         </label>
                         <div class="input-group mb-3 mr-sm-2">
-                            <input class="form-control mr-sm-0" id="city-input" type="search" placeholder="Enter a City" aria-label="Search">
+                            <input class="form-control mr-sm-0" id="city-input" type="search" placeholder="Enter a City"
+                                aria-label="Search">
                             <div class="input-group-append">
-                                <button id="searchcity" class="btn btn-primary searchButton" type="button" onclick="displayWeather()">
+                                <button id="searchcity" class="btn btn-primary searchButton" type="button"
+                                    onclick="displayWeather()">
                                     <i class="fa fa-search"></i></button>
                             </div>
                         </div>
@@ -58,10 +60,15 @@
                 </div>
             </div>
             <div class="col-md-9">
-                
-                    <div id="currentWeather" class="card">
-                        <div class="row">
+
+                <div id="currentWeather" class="card">
+                    <div class="row">
                         <div class="card-body col-md-6">
+                            <!-- Loading spinner -->
+                            <div class="loading">
+                                <div class="spinner"></div>
+                                <p>Searching...</p>
+                            </div>
                             <h3 class="cityDate"></h3>
                             <div class="icon"></div>
                             <div class="sky"></div>
@@ -70,9 +77,9 @@
                             <div class="humidity"></div>
                             <div class="UV"></div>
                         </div>
-                    <div class="col-md-6" id="city-img">
+                        <div class="col-md-6" id="city-img">
+                        </div>
                     </div>
-                </div>
                 </div>
                 <div>
                     <br>
