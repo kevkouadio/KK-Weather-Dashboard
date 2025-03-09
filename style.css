@@ -13,7 +13,7 @@ body {
     max-width: 1200px;
 }
 
-#currentWeather {
+#currentWeather, #fiveDayForecast {
     background-color: rgba(255, 255, 255, 0.85);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
@@ -21,6 +21,17 @@ body {
     margin-bottom: 20px;
     backdrop-filter: blur(10px);
     transition: transform 0.3s ease;
+}
+
+#fiveDayForecast {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#fiveDayForecast:hover {
+    transform: translateY(-5px);
 }
 
 #currentWeather:hover {
@@ -45,7 +56,6 @@ body {
     background-color: #007bff;
     border: none;
     height: 45px;
-    /* line-height: 45px; */
     border-radius: 8px;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -62,7 +72,7 @@ body {
     background-color: rgba(3, 115, 252, 0.85);
     color: #fff;
     float: left;
-    margin: 15px;
+    margin: 5px;
     width: auto;
     border: none;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -97,6 +107,9 @@ body {
     margin: auto;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .loading {
